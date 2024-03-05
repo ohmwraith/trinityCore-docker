@@ -32,7 +32,7 @@ BUILD_FOLDER=/opt/trinitycore
 CONTAINER_FOLDER=$(readlink -f ../trinityContainers)
 
 # overbook threads to use for build. You want to build at full tilt, it speeds the build up tremendously
-BUILD_THREAD_COUNT=18
+BUILD_THREAD_COUNT=$(nproc)
 
 # if you want to force this script to build a specific tag, set it here. Use tags only, don't built arbitrary 
 # hashes, this script hasn't been tested to work with hashes
@@ -54,10 +54,9 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-
+sudo apt install libboost-all-dev p7zip-full docker.io git wget curl -y
 ##############################################################################################################
 # try to test as much as possible before running script so we can catch missing/broken things
-
 # ensure that docker is available
 echo "doing docker version check ..."
 docker ps -a
@@ -123,7 +122,7 @@ FULL_DATABASE_FRAGMENT="${BUILD_TAG}/TDB_full_world_${BUILD_TAG/TDB/}_${TAG_DATE
 # same time as updating the host. Fingers crossed.
 apt-get update
 apt-get upgrade -y
-apt-get install -y git clang cmake make gcc g++ libmariadbclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev=1.71.0.0ubuntu2 mariadb-server p7zip p7zip-full libmariadb-client-lgpl-dev-compat
+apt-get install -y git clang cmake make gcc g++ libmariadb-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev=1.71.0.0ubuntu2 mariadb-server p7zip p7zip-full libmariadb-dev-compat
 update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100
 update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100
 
