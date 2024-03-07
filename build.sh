@@ -119,12 +119,14 @@ FULL_DATABASE_FRAGMENT="${BUILD_TAG}/TDB_full_world_${BUILD_TAG/TDB/}_${TAG_DATE
 # install build prerequisites. This is an unholy mess that's going to constantly shift as Ubuntu 20.04 gets 
 # maintainance patches, but we'll hopefully stay sync with our Ubuntu 20.04 docker image by buiding at the 
 # same time as updating the host. Fingers crossed.
+# For latest mysql-apt repository, check url from https://dev.mysql.com/downloads/repo/apt/
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb -O /tmp/mysql-apt-config_all.deb
+DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/mysql-apt-config_all.deb
 apt-get update
 apt-get upgrade -y
 apt-get install -y git clang cmake make gcc g++ libmysqlclient-dev libssl-dev libbz2-dev libreadline-dev libncurses-dev libboost-all-dev mysql-server p7zip
 update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100
 update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang 100
-
 # configure and build
 cd $SRC_FOLDER
 if [ $FULL_BUILD -eq 1 ]; then
