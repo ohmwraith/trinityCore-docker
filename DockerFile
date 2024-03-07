@@ -6,12 +6,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
     && apt-get install -y llibboost-all-dev \
-    && apt-get install -y libboost-system1.71.0 \
-    && apt-get install -y libboost-filesystem1.71.0 \
-    && apt-get install -y libboost-thread1.71.0 \
-    && apt-get install -y libboost-program-options1.71.0 \
-    && apt-get install -y libboost-iostreams1.71.0 \
-    && apt-get install -y libboost-regex1.71.0 \
+    && apt-get install -y libboost-filesystem1.74-dev \
+    && apt-get install -y libboost-system1.74 \
+    && apt-get install -y libboost-filesystem1.74 \
+    && apt-get install -y libboost-thread1.74 \
+    && apt-get install -y libboost-program-options1.74 \
+    && apt-get install -y libboost-iostreams1.74 \
+    && apt-get install -y libboost-rege1.74 \
     && apt-get install -y mariadb-client \
     && apt-get install -y libmariadb-dev \
     && apt-get install -y libreadline8 \
